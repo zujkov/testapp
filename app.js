@@ -1,7 +1,7 @@
 var keycloak = new Keycloak({
-  url: 'http://sso.tdlabs.local:8899/u/auth',
-  realm: 'acme',
-  clientId: 'app-frontend-plainjs'
+  url: 'http://10.101.45.43:8180/auth',
+  realm: 'DD',
+  clientId: 'github-client-frontend'
 });
 
 window.onload = function () {
