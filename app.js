@@ -60,3 +60,4 @@ function show(id) {
 }
 
 keycloak.onAuthLogout = welcome;
+
