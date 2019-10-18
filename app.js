@@ -1,5 +1,5 @@
 var keycloak = new Keycloak({
-  url: 'http://10.101.45.43:8180/auth',
+  url: 'https://localhost:8443/auth',
   realm: 'DD',
   clientId: 'github-client-frontend'
 });
