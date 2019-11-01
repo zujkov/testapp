@@ -1,7 +1,7 @@
 var keycloak = new Keycloak({
-  url: 'https://localhost:8443/auth',
+  url: 'https://auth.mediascope.net/auth',
   realm: 'DD',
-  clientId: 'github-client-frontend'
+  clientId: 'va-partner-yandex'
 });
 
 window.onload = function () {
