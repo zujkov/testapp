@@ -1,0 +1,10 @@
+{
+  "realm": "DD",
+  "auth-server-url": "https://auth.mediascope.net/auth",
+  "ssl-required": "external",
+  "resource": "va-partner-yandex",
+  "credentials": {
+    "secret": "51f3c12b-9e51-454f-8735-efdf3e81039b"
+  },
+  "confidential-port": 0
+}

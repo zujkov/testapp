@@ -1,14 +1,9 @@
-var keycloak = new Keycloak({
-  url: 'https://localhost:8443/auth',
-  realm: 'DD',
-  clientId: 'local-test-sso-client'
-});
+var keycloak = new Keycloak();
 
 window.onload = function () {
 
-  keycloak.init({onLoad: 'login-required', checkLoginIframe: true, checkLoginIframeInterval: 1})
+  keycloak.init({onLoad: 'check-sso', checkLoginIframe: true, checkLoginIframeInterval: 1})
     .success(function () {
-
       if (keycloak.authenticated) {
         showProfile();
       } else {
@@ -17,6 +12,11 @@ window.onload = function () {
 
       document.body.style.display = 'block';
     });
+
+    keycloak.onTokenExpired = () => {
+      keycloak.logout();
+    console.log('Token Expired');
+    };
 };
 
 function welcome() {
@@ -25,37 +25,24 @@ function welcome() {
 
 function showProfile() {
 
-  if (keycloak.tokenParsed['given_name']) {
-    document.getElementById('firstName').innerHTML = keycloak.tokenParsed['given_name'];
-  }
-  if (keycloak.tokenParsed['family_name']) {
-    document.getElementById('lastName').innerHTML = keycloak.tokenParsed['family_name'];
-  }
   if (keycloak.tokenParsed['preferred_username']) {
     document.getElementById('username').innerHTML = keycloak.tokenParsed['preferred_username'];
   }
   if (keycloak.tokenParsed['email']) {
     document.getElementById('email').innerHTML = keycloak.tokenParsed['email'];
   }
+  if (keycloak.token) {
+    document.getElementById('access_token').innerHTML = keycloak.token;
+  }
+  if (keycloak.refreshToken) {
+    document.getElementById('refresh_token').innerHTML = keycloak.refreshToken;  
+  }
 
   show('profile');
 }
 
-function showToken() {
-  document.getElementById('token-content').innerHTML = JSON.stringify(keycloak.tokenParsed, null, '    ');
-  show('token');
-}
-
-function showIdToken() {
-  document.getElementById('token-content').innerHTML = JSON.stringify(keycloak.idTokenParsed, null, '    ');
-  show('token');
-}
-
 function show(id) {
   document.getElementById('welcome').style.display = 'none';
-  document.getElementById('profile').style.display = 'none';
-  document.getElementById('token').style.display = 'none';
-  document.getElementById('idToken').style.display = 'none';
   document.getElementById(id).style.display = 'block';
 }
 
